@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 const GenerateQRCode = () => {
   const { route } = useParams();
-  const url = `https://v1tti.github.io/healthtech/${route}`;
+  const url = `https://v1tti.github.io/healthtech/:${route}`;
 
   return (
     <div>
