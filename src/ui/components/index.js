@@ -1,0 +1,1 @@
+export { SquatExercise } from '../components/squat/SquatExercise.jsx'
