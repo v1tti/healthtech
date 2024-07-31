@@ -1,7 +1,7 @@
 import QRCode from 'qrcode.react';
 import { useParams } from 'react-router-dom';
 
-const GenerateQRCode = () => {
+export const GenerateQRCode = () => {
   const { route } = useParams();
   const url = `https://v1tti.github.io/healthtech/:${route}`;
 

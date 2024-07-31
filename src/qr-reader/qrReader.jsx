@@ -5,7 +5,7 @@ import jsQR from 'jsqr';
 import { Header } from '../ui/components/header/header';
 import './qrReader.css';
 
-const QRCodeReader = () => {
+export const QRCodeReader = () => {
   const navigate = useNavigate();
   const webcamRef = useRef(null);
   const [cameraFacingMode, setCameraFacingMode] = useState('user'); // 'user' for front camera, 'environment' for rear camera
@@ -76,4 +76,4 @@ const QRCodeReader = () => {
   );
 };
 
-export default QRCodeReader;
+
