@@ -1,5 +1,5 @@
 export const ROUTES = {
-    BASE: "/",
+    BASE: "/healthtech",
     GENERATE: "/healthtech-gen",
     SQUAT: "/healthtech-ex-squat",
   };
