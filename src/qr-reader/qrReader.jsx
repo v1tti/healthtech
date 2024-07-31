@@ -4,6 +4,8 @@ import WebCam from 'react-webcam';
 import jsQR from 'jsqr';
 import { Header } from '../ui/components/header/header';
 import './qrReader.css';
+import { Link } from "react-router-dom";
+import { ROUTES } from '../router/routes-constants';
 
 export const QRCodeReader = () => {
   const navigate = useNavigate();
@@ -57,6 +59,7 @@ export const QRCodeReader = () => {
 
   return (
     <div className='container'>
+      <Link to={ROUTES.SQUAT}><button>Navegar</button></Link>
       <Header />
       <h1>Scan QR Code</h1>
       <button onClick={toggleCamera}>
