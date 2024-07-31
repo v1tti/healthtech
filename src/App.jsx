@@ -7,9 +7,9 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<QRCodeReader />} />
-        <Route path="/generate/:route" element={<GenerateQRCode />} />
-        <Route path="/exercises/squat" element={<SquatExercise />} />
+        <Route path="/healthtech" element={<QRCodeReader />} />
+        <Route path="/healthtech/generate/:route" element={<GenerateQRCode />} />
+        <Route path="/healthtech/exercises/squat" element={<SquatExercise />} />
 
       </Routes>
     </Router>
