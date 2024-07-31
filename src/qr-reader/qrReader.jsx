@@ -13,12 +13,13 @@ const QRCodeReader = () => {
 
   const handleScan = (data) => {
     if (data) {
+      console.log('QR Code Data:', data); // Adicionado para depuração
       navigate(data);
     }
   };
 
   const handleError = (err) => {
-    console.error(err);
+    console.error('Camera Error:', err); // Adicionado para depuração
   };
 
   const scanQRCode = () => {
@@ -31,9 +32,10 @@ const QRCodeReader = () => {
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
       const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
       const code = jsQR(imageData.data, canvas.width, canvas.height);
-      console.log(imageData)
       if (code) {
         handleScan(code.data);
+      } else {
+        console.log('QR Code not detected'); // Adicionado para depuração
       }
     }
   };

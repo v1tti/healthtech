@@ -9,7 +9,7 @@ const App = () => {
       <Routes>
         <Route path="/healthtech" element={<QRCodeReader />} />
         <Route path="/healthtech/generate/:route" element={<GenerateQRCode />} />
-        <Route path="/healthtech/exercises/squat" element={<SquatExercise />} />
+        <Route path="/healthtech/exercises/:squat" element={<SquatExercise />} />
 
       </Routes>
     </Router>
