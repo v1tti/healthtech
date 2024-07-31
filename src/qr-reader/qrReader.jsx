@@ -1,9 +1,15 @@
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { QrReader } from 'react-qr-reader';
+import WebCam from 'react-webcam';
+import jsQR from 'jsqr';
 import { Header } from '../ui/components/header/header';
-import './qrReader.css'
+import './qrReader.css';
+
 const QRCodeReader = () => {
   const navigate = useNavigate();
+  const webcamRef = useRef(null);
+  const [cameraFacingMode, setCameraFacingMode] = useState('user'); // 'user' for front camera, 'environment' for rear camera
+  const [intervalId, setIntervalId] = useState(null);
 
   const handleScan = (data) => {
     if (data) {
@@ -15,15 +21,52 @@ const QRCodeReader = () => {
     console.error(err);
   };
 
+  const scanQRCode = () => {
+    const video = webcamRef.current.video;
+    if (video) {
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const context = canvas.getContext('2d');
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+      const code = jsQR(imageData.data, canvas.width, canvas.height);
+      console.log(imageData)
+      if (code) {
+        handleScan(code.data);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const id = setInterval(scanQRCode, 1000); // Verifica a cada 1 segundo
+    setIntervalId(id);
+    
+    return () => {
+      clearInterval(id); // Limpa o intervalo ao desmontar o componente
+    };
+  }, []);
+
+  const toggleCamera = () => {
+    setCameraFacingMode((prevMode) =>
+      prevMode === 'user' ? 'environment' : 'user'
+    );
+  };
+
   return (
     <div className='container'>
-      <Header></Header>
+      <Header />
       <h1>Scan QR Code</h1>
+      <button onClick={toggleCamera}>
+        {cameraFacingMode === 'user' ? 'Switch to Rear Camera' : 'Switch to Front Camera'}
+      </button>
       <div className='qr-reader-wrapper'>
-        <QrReader
-          delay={300}
-          onError={handleError}
-          onScan={handleScan}
+        <WebCam
+          audio={false}
+          ref={webcamRef}
+          screenshotFormat='image/jpeg'
+          videoConstraints={{ facingMode: cameraFacingMode }}
+          onUserMediaError={handleError}
           style={{ width: '100%', height: '100%' }}
         />
       </div>
